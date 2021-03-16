@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TwoAninmatedBuilders extends StatefulWidget {
+class TwoAnimatedBuilders extends StatefulWidget {
   final List<Listenable> animations;
   final Widget Function() builder;
-  const TwoAninmatedBuilders({
+  const TwoAnimatedBuilders({
     Key key,
     @required this.animations,
     this.builder,
   }) : super(key: key);
   @override
-  _TwoAninmatedBuildersState createState() => _TwoAninmatedBuildersState();
+  _TwoAnimatedBuildersState createState() => _TwoAnimatedBuildersState();
 }
 
-class _TwoAninmatedBuildersState extends State<TwoAninmatedBuilders> {
+class _TwoAnimatedBuildersState extends State<TwoAnimatedBuilders> {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(

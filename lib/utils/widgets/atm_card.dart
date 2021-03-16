@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ATMCARD extends StatefulWidget {
+class ATMCard extends StatefulWidget {
   final ATMCardAnimationDetails animationDetails;
   final ATMCardUIDetails atmCardUIDetails;
-  const ATMCARD({
+
+  const ATMCard({
     Key key,
     @required this.animationDetails,
     @required this.atmCardUIDetails,
   }) : super(key: key);
 
   @override
-  _ATMCARDState createState() => _ATMCARDState();
+  _ATMCardState createState() => _ATMCardState();
 }
 
-class _ATMCARDState extends State<ATMCARD> {
+class _ATMCardState extends State<ATMCard> {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
@@ -38,7 +39,7 @@ class _ATMCARDState extends State<ATMCARD> {
               Icon(
                 widget.atmCardUIDetails.cardIcon ?? Icons.masks_rounded,
                 color: Colors.white,
-                size: 60,
+                size: 30,
               ),
               Transform.translate(
                 offset: Offset(0, -2),
@@ -51,12 +52,20 @@ class _ATMCARDState extends State<ATMCARD> {
                 ),
               ),
               Spacer(),
-              Text(
-                (widget.atmCardUIDetails.cardPan ?? "1234567890181234").replaceAllMapped(
-                    RegExp(r".{4}"), (match) => "${match.group(0)}       "),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  4,
+                  (index) {
+                    return Text(
+                     "1234",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    );
+                  },
+                ),
               ),
+
               Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,7 +97,8 @@ class _ATMCARDState extends State<ATMCARD> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          widget.atmCardUIDetails.cardOwner?.toUpperCase() ?? "JOSTEVE ADEKANBI",
+                          widget.atmCardUIDetails.cardOwner?.toUpperCase() ??
+                              "JOSTEVE ADEKANBI",
                           style: TextStyle(
                             color: Colors.white,
                           ),

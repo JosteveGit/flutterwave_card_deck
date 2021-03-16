@@ -1,6 +1,5 @@
-import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutterwave_card_deck/utils/widgets/animated_card_deck.dart';
 import 'package:flutterwave_card_deck/utils/widgets/atm_card.dart';
 
@@ -11,49 +10,6 @@ class PlaygroundPage extends StatefulWidget {
 
 class _PlaygroundPageState extends State<PlaygroundPage>
     with TickerProviderStateMixin {
-  AnimationController _moveController;
-  AnimationController _shiftController;
-
-  CurvedAnimation curvedAnimation;
-
-  @override
-  void initState() {
-    _shiftController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    _moveController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    curvedAnimation =
-        CurvedAnimation(parent: _moveController, curve: Curves.ease);
-    super.initState();
-    Timer.periodic(Duration(milliseconds: 3000), (timer) async {
-      await animate();
-    });
-  }
-
-  Future<void> animate() async {
-    await _moveController.forward();
-    setState(() {
-      isOut = true;
-    });
-    _moveController.reverse();
-    await Future.delayed(Duration(milliseconds: 300));
-    _shiftController.forward();
-    await Future.delayed(Duration(seconds: 1));
-    _shiftController.reset();
-    setState(() {
-      isOut = false;
-      //Throw the first item to the end of the list
-      cardsDetailsList.add(cardsDetailsList.removeAt(0));
-    });
-  }
-
-  @override
-  void dispose() {
-    _moveController.dispose();
-    _shiftController.dispose();
-    super.dispose();
-  }
-
   List<ATMCardUIDetails> cardsDetailsList = [
     ATMCardUIDetails(
       cardIcon: CupertinoIcons.money_dollar_circle,
@@ -106,14 +62,10 @@ class _PlaygroundPageState extends State<PlaygroundPage>
       backgroundColor: Colors.black,
       body: Center(
         child: AnimatedCardDeck(
-          moveController: curvedAnimation,
-          shiftController: _shiftController,
-          isOut: isOut,
           cardsDetailsList: cardsDetailsList,
+          size: MediaQuery.of(context).size.width / 4.5,
         ),
       ),
     );
   }
-
-  bool isOut = false;
 }
